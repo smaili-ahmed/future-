@@ -3,3 +3,5 @@ __pycache__/
 *.py[cod]
 .env
 
+
+data/mooup_glovo.sqlite3
