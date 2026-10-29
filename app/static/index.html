@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mooup × Glovo — Analyse concurrentielle</title><link rel="stylesheet" href="/static/styles.css"></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="#"><span class="brandmark">M</span><span>marché<span class="muted">.scope</span></span></a>
+  <div class="workspace"><span class="dot"></span> Oujda, Maroc</div>
+  <nav id="nav">
+    <a class="active" data-view="overview"><span class="ico">▦</span><span>Vue générale</span></a>
+    <a data-view="restaurantCompare"><span class="ico">⇄</span><span>Comparaison des restaurants</span></a>
+    <a data-view="history"><span class="ico">◷</span><span>Historique</span></a>
+  </nav>
+  <div class="sidefoot">Mooup · Glovo<br><b>Oujda · Food</b></div>
+</aside>
+<main>
+  <header>
+    <div class="headtext">
+      <div class="eyebrow">MOOUP · GLOVO <span class="pill">OUJDA · FOOD</span></div>
+      <h1 id="page-title">Comparaison Mooup vs Glovo</h1>
+      <p class="sub" id="page-sub">Restaurants, menus et prix réellement disponibles.</p>
+      <p class="hint" id="page-date">Dernière analyse : Non disponible</p>
+    </div>
+    <button id="run" class="primary">↻ <span>Lancer la comparaison</span></button>
+  </header>
+  <section id="content"></section>
+  <footer>Les données proviennent des catalogues collectés (export Glovo local, API Mooup). Aucun prix, produit ou correspondance n’est estimé ou fabriqué. Une donnée non collectée n’est pas une preuve d’absence.</footer>
+</main>
+<div id="toast" role="status"></div>
+<script src="/static/app.js"></script>
+</body></html>
