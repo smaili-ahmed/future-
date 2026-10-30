@@ -27,6 +27,7 @@ const ROOT = path.resolve(__dirname, "..");
 const app = express();
 app.disable("x-powered-by");
 app.use("/static", express.static(path.join(ROOT, "app", "static")));
+app.use("/images", express.static(path.join(ROOT, "public", "images")));
 
 let activeRun = {
   status: "idle",

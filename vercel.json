@@ -8,9 +8,17 @@
       "config": {
         "includeFiles": ["app/static/**", "data/seed.json"]
       }
+    },
+    {
+      "src": "public/images/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/images/(.*)",
+      "dest": "/public/images/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/api/index.js"

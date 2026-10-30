@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260" role="img" aria-label="Photo indisponible">
+  <rect width="260" height="260" fill="#f1f4f2"/>
+  <rect x="54" y="78" width="152" height="112" rx="18" fill="none" stroke="#9bb3a8" stroke-width="8"/>
+  <circle cx="130" cy="134" r="35" fill="none" stroke="#9bb3a8" stroke-width="8"/>
+  <circle cx="180" cy="104" r="8" fill="#9bb3a8"/>
+  <path d="M82 78l12-20h72l12 20" fill="none" stroke="#9bb3a8" stroke-width="8" stroke-linejoin="round"/>
+  <text x="130" y="226" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#7d948a">Photo indisponible</text>
+</svg>
