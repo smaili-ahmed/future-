@@ -29,6 +29,16 @@ app.disable("x-powered-by");
 app.use("/static", express.static(path.join(ROOT, "app", "static")));
 app.use("/images", express.static(path.join(ROOT, "public", "images")));
 
+app.use((req, res, next) => {
+  if (process.env.VERCEL && !["GET", "HEAD", "OPTIONS"].includes(req.method)) {
+    return res.status(403).json({
+      detail:
+        "Mode lecture seule sur Vercel : les données de comparaison ne peuvent pas être modifiées. Lancez la comparaison en local.",
+    });
+  }
+  next();
+});
+
 let activeRun = {
   status: "idle",
   stage: "idle",

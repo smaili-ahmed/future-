@@ -591,7 +591,13 @@ document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>{
   if(view==='overview'||view==='restaurantCompare')selectedCommon=null;
   render();
 });
+const READ_ONLY=/\.vercel\.app$/i.test(location.hostname);
+if(READ_ONLY){
+  const button=$('#run');
+  if(button){button.disabled=true;button.title='Lecture seule sur Vercel : lancez la comparaison en local.';button.querySelector('span').textContent='Lecture seule (Vercel)'}
+}
 $('#run').onclick=async()=>{
+  if(READ_ONLY){toast('Lecture seule sur Vercel : lancez la comparaison en local.');return}
   const button=$('#run');button.disabled=true;button.querySelector('span').textContent='Analyse lancée…';
   try{
     const r=await fetch('/api/runs',{method:'POST'}),result=await r.json();

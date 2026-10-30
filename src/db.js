@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
@@ -12,6 +13,9 @@ const DB_PATH =
 const SEED_PATH =
   process.env.SEED_PATH ||
   path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "data", "seed.json");
+const SEED_MARKER =
+  process.env.SEED_MARKER ||
+  path.join(path.dirname(path.resolve(DB_PATH)), "mooup_glovo.seed.sha256");
 
 let database = null;
 
@@ -131,9 +135,23 @@ export function initialize() {
 
 export function seedIfEmpty() {
   const db = connect();
-  const row = db.prepare("SELECT COUNT(*) AS n FROM collection_runs").get();
-  if (Number(row.n) > 0) return false;
   if (!fs.existsSync(SEED_PATH)) return false;
+
+  const row = db.prepare("SELECT COUNT(*) AS n FROM collection_runs").get();
+  const hasRuns = Number(row.n) > 0;
+  const seedHash = crypto.createHash("sha256").update(fs.readFileSync(SEED_PATH)).digest("hex");
+
+  if (process.env.VERCEL) {
+    let marker = null;
+    try {
+      marker = fs.readFileSync(SEED_MARKER, "utf8").trim();
+    } catch {
+      marker = null;
+    }
+    if (marker === seedHash && hasRuns) return false;
+  } else if (hasRuns) {
+    return false;
+  }
 
   const snapshot = JSON.parse(fs.readFileSync(SEED_PATH, "utf8"));
   const restaurants = snapshot.restaurants || { glovo: [], mooup: [] };
@@ -170,6 +188,13 @@ export function seedIfEmpty() {
       );
     }
     db.exec("COMMIT");
+    if (process.env.VERCEL) {
+      try {
+        fs.writeFileSync(SEED_MARKER, seedHash);
+      } catch (error) {
+        console.warn(`[db] Impossible d’écrire le marqueur de seed : ${error.message}`);
+      }
+    }
     console.log(`[db] Instantané read-only chargé depuis ${SEED_PATH}`);
     return true;
   } catch (error) {
