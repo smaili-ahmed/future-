@@ -2,5 +2,10 @@
 __pycache__/
 *.py[cod]
 .env
+node_modules/
+data/*.lfs-pointer
+data/*.sqlite3
+data/*.sqlite3-wal
+data/*.sqlite3-shm
 
 

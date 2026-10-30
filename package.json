@@ -1,0 +1,21 @@
+{
+  "name": "comparateur-mooup-glovo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Comparateur Mooup x Glovo — portage Node.js du dashboard FastAPI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "csv-parse": "^5.6.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fuzzball": "^2.1.3"
+  }
+}
