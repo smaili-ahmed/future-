@@ -1,0 +1,9 @@
+node_modules
+.venv
+.git
+.vercel
+.env
+.env.local
+data/*.sqlite3
+data/*.sqlite3-*
+data/*.lfs-pointer

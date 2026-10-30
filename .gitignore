@@ -9,3 +9,5 @@ data/*.sqlite3-wal
 data/*.sqlite3-shm
 
 
+.vercel
+.env*
