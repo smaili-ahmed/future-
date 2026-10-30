@@ -25,7 +25,7 @@ const fact=(label,value)=>`<div class="fact"><dt>${esc(label)}</dt><dd>${value||
 function coverageLine(){
   const q=data.quality||{},meta=(data.restaurants||{})._meta||{},g=meta.glovo||{};
   const parts=[`Glovo ${q.restaurants_glovo||0}/${q.glovo_export_reported??'—'} fiches`];
-  parts.push(g.scraped_at?`export du ${fmtDate(g.scraped_at)}`:'export local non daté');
+  parts.push(g.scraped_at?`${g.source==='glovo live'?'lecture live':'export'} du ${fmtDate(g.scraped_at)}`:'export local non daté');
   parts.push(data.mooup_catalog_available?`Mooup ${q.restaurants_mooup||0} restaurants · catalogue du ${fmtDate(data.mooup_last_sync)}`:'catalogue Mooup non chargé');
   return parts.join(' · ');
 }
@@ -74,7 +74,7 @@ function renderOverview(){
     <div class="grid-2">
       <dl class="facts">
         <div><dt>Analyse</dt><dd>${esc(data.run?.status||'aucune analyse')} · ${fmtDate(data.run?.finished_at)}${data.errors?.length?` · ${data.errors.length} limitation(s)`:' · aucune erreur de collecte'}</dd></div>
-        <div><dt>Glovo</dt><dd>${data.quality?.restaurants_glovo||0} restaurants · ${data.quality?.products_glovo||0} produits · export local (${data.quality?.glovo_export_reported??'—'} fiches annoncées)</dd></div>
+        <div><dt>Glovo</dt><dd>${data.quality?.restaurants_glovo||0} restaurants · ${data.quality?.products_glovo||0} produits · ${data.quality?.catalog_sources?.glovo?.source==='glovo live'?'lecture live':'export local'} (${data.quality?.glovo_export_reported??'—'} fiches annoncées)</dd></div>
         <div><dt>Mooup</dt><dd>${data.mooup_catalog_available?`${data.quality?.restaurants_mooup||0} restaurants · ${data.quality?.products_mooup||0} produits · synchronisé le ${fmtDate(data.mooup_last_sync)} · source : ${esc(data.mooup_source||'inconnue')}`:'Catalogue non chargé : aucune absence sur Mooup n’est vérifiable.'}</dd></div>
         <div><dt>Couverture</dt><dd>${esc(data.quality?.coverage_note||'Non calculable.')}</dd></div>
       </dl>

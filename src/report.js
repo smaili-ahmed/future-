@@ -733,9 +733,12 @@ function qualityReport(data) {
   const expected = glovoMeta.restaurants_reported;
   const coverage =
     Number.isInteger(expected) && expected > 0 ? round((glovo.length / expected) * 100, 1) : null;
+  const live = glovoMeta.source === "glovo live";
   const coverageNote =
     coverage !== null
-      ? `${glovo.length}/${expected} fiches lues depuis l’export local; ce taux porte sur l’export, pas sur toute l’offre Glovo.`
+      ? live
+        ? `${glovo.length}/${expected} fiches lues en direct sur Glovo; ce taux porte sur les fiches suivies, pas sur toute l’offre Glovo.`
+        : `${glovo.length}/${expected} fiches lues depuis l’export local; ce taux porte sur l’export, pas sur toute l’offre Glovo.`
       : "Le total global des plateformes n’est pas publié; la couverture en pourcentage n’est pas calculable.";
   return {
     restaurants_glovo: glovo.length,
